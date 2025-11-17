@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>EvoVLA: Self-Evolving Vision-Language-Action Model</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/evovla_logo.png">
+    <!-- or .ico if you have it: <link rel="icon" href="images/favicon.ico"> -->
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+    <!-- Google tag (gtag.js) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ZERS5BVPS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-8ZERS5BVPS');
+    </script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+    <script defer src="js/fontawesome.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/synced_video_selector.js"></script>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+
+    <script type="module">
+        import { createSplatView, setSplatScene, setupCarousel } from "./js/splats.js"
+        setupCarousel(createSplatView("splat-picker"), document.querySelector("#splat-carousel"));
+    </script>
+    <style>
+        .final-element {
+            white-space: nowrap;
+        }
+
+        .mesh-grid .mesh-card {
+            border: 1px solid #d6e4ff;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+        }
+
+        .mesh-card model-viewer {
+            width: 100%;
+            height: 260px;
+            background: #ffffff;
+            --poster-color: #ffffff;
+            --progress-bar-color: #2563eb;
+            --progress-bar-height: 3px;
+        }
+
+        .mesh-caption {
+            background-color: #eef6ff;
+            padding: 14px;
+            font-size: 0.95rem;
+            color: #123769;
+            line-height: 1.4;
+        }
+
+        .qa-row {
+            max-width: 70%;
+            margin: 0 auto 2rem auto;
+        }
+
+        .qa-text {
+            background-color: #eef6ff;
+            border-radius: 12px;
+            padding: 20px;
+            color: #123769;
+            height: 100%;
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+        }
+
+        @media (min-width: 768px) {
+            .qa-mesh-col {
+                flex: 0 0 30%;
+                max-width: 30%;
+            }
+
+            .qa-text-col {
+                flex: 0 0 70%;
+                max-width: 70%;
+            }
+        }
+
+        .vaseeval-wrapper {
+            max-width: 70%;
+            margin: 0 auto 3rem auto;
+        }
+
+        .vaseeval-row {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .vaseeval-label {
+            flex: 0 0 110px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: #123769;
+        }
+
+        .vaseeval-grid {
+            flex: 1;
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+
+        .vaseeval-grid model-viewer {
+            width: 100%;
+            height: 220px;
+            border: 1px solid #d6e4ff;
+            border-radius: 12px;
+            background: #ffffff;
+            --poster-color: #ffffff;
+            --progress-bar-color: #2563eb;
+            --progress-bar-height: 3px;
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+        }
+
+        @media (max-width: 991px) {
+            .vaseeval-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .vaseeval-label {
+                flex: none;
+            }
+
+            .vaseeval-grid {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body style="padding: 5%; padding-top: min(15px, 5%); padding-bottom: min(5px, 5%); width: 100%">
+    <div class="container-lg text-center" style="max-width: 1500px; margin: auto;" id="main">
+        <header role="banner">
+            <!-- <div class="container" id="main"> -->
+            <div class="row">
+                <h2 class="col-md-12 text-center" style="padding-top: 10px">
+                    <b>EvoVLA:</b> Self-Evolving Vision-Language-Action Model</br>
+                </h2>
+                <br><br><br>
+                <!-- <h4 class="col-md-12 text-center" style="padding-top: 10px; padding-bottom: 10px;">
+                    ICML 2025
+                </h4> -->
+            </div>
+            <div class="row text-center">
+                <div class="col-md-3">
+                </div>
+                <div class="container-fluid text-center">
+                    <ul class="list-inline" style="white-space: nowrap; margin:0px 0px 0px 0px;">
+                        <li><a style="font-size: calc(min(3vw, 18px))" href="#">Zeting Liu<sup>*</sup></a></li>
+                        <li><a style="font-size: calc(min(3vw, 18px))" href="#">Zida Yang<sup>*</sup></a></li>
+                        <li><a style="font-size: calc(min(3vw, 18px))" href="https://steve-zeyu-zhang.github.io/">Zeyu Zhang<sup>*†</sup></a></li>
+                        <li><a style="font-size: calc(min(3vw, 18px))" href="https://ha0tang.github.io/">Hao Tang<sup>‡</sup></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-12 text-center" style="font-size: calc(min(3vw, 16px))">
+                    Peking University &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="col-md-12 text-center" style="font-size: calc(min(3vw, 15px))">
+                    <sup>*</sup>Equal contribution. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <sup>†</sup>Project lead. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <sup>‡</sup>Corresponding author. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            <br>
+            <div class="row text-center">
+                <span class="link-block" style="padding-top: 10px; padding-bottom: 10px">
+                    <a href="https://arxiv.org/abs/" class="external-link button is-normal is-rounded is-dark"
+                        style="width: 80px; font-size: 15px; text-align: center;">
+                        <span class="icon">
+                            <i class="ai ai-arxiv"></i>
+                        </span>
+                        <span>Paper</span>
+                    </a>
+                    &nbsp;&nbsp;
+                    
+                    <a href="https://github.com/AIGeeksGroup/EvoVLA" class="external-link button is-normal is-rounded is-dark"
+                        style="width: 80px; font-size: 15px; text-align: center;">
+                        <span class="icon">
+                            <i class="fas fa-code"></i>
+                        </span>
+                        <span>Code</span>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="https://huggingface.co/datasets/AIGeeksGroup/Discoverse-L" class="external-link button is-normal is-rounded is-dark"
+                        style="width: 80px; font-size: 15px; text-align: center;">
+                        <span class="icon">
+                            <i class="fa fa-database"></i>
+                        </span>
+                        <span>Data</span>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="https://huggingface.co/AIGeeksGroup/EvoVLA" class="external-link button is-normal is-rounded is-dark"
+                        style="width: 80px; font-size: 15px; text-align: center;">
+                        <span class="icon">
+                            <i class="fa fa-play"></i>
+                        </span>
+                        <span>Model</span>
+                    </a>
+                </span>
+            </div>
+        </header>
+        <br>
+
+        <main role="main">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 rounded"
+                    style="text-align: center; padding: 10px; padding-bottom: 0px; background-color: #eef6ff;">
+                    <h6 style="text-align: center"><strong>TL;DR: </strong>EvoVLA mitigates long-horizon stage hallucination with self-supervised rewards, pose-grounded exploration, and selective memory, achieving substantially higher success on Discoverse-L and strong Sim2Real robustness.</h6>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <video id="co3d-grid"  width="70%" autoplay loop muted controls playsinline>
+                        <source src="videos/teaser.mp4" type="video/mp4"></source>
+                    </video>
+                </div>
+            </div>
+            <br><br>
+
+
+            <br>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10" style="max-width: 70%;">
+                    <h3> Real World Results </h3>
+                </div>
+            </div>
+            <div class="video-grid-wrapper" style="max-width: 70%; margin: 0 auto;">
+                <div class="row text-center text-uppercase fw-bold small g-0" style="border-bottom: 2px solid #d0d7de;">
+                    <div class="col-6 py-2">Eye-in-hand</div>
+                    <div class="col-6 py-2">Eye-to-hand</div>
+                </div>
+
+                <!-- Group 1: Bridge Assembly -->
+                <div class="row g-4 align-items-start mt-3">
+                    <div class="col-12 col-md-6">
+                        <div class="p-2 shadow-sm rounded-3 h-100" style="background:#f8fbff;">
+                            <video src="videos/Realworld/bridge_real/cam_1.mp4" class="w-100 rounded-3" autoplay loop muted playsinline controls></video>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="p-2 shadow-sm rounded-3 h-100" style="background:#f8fbff;">
+                            <video src="videos/Realworld/bridge_real/cam_0.mp4" class="w-100 rounded-3" autoplay loop muted playsinline controls></video>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center mt-2">
+                    <div class="col-12">
+                        <p class="shared-caption text-muted mb-0">build a bridge with green bars and fill with purple blocks</p>
+                    </div>
+                </div>
+
+                <!-- Group 2: Banana Insertion -->
+                <div class="row g-4 align-items-start mt-4">
+                    <div class="col-12 col-md-6">
+                        <div class="p-2 shadow-sm rounded-3 h-100" style="background:#f8fbff;">
+                            <video src="videos/Realworld/Insert_real/cam_1.mp4" class="w-100 rounded-3" autoplay loop muted playsinline controls></video>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="p-2 shadow-sm rounded-3 h-100" style="background:#f8fbff;">
+                            <video src="videos/Realworld/Insert_real/cam_0.mp4" class="w-100 rounded-3" autoplay loop muted playsinline controls></video>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center mt-2">
+                    <div class="col-12">
+                        <p class="shared-caption text-muted mb-0">Stack four cups and insert the banana-shaped object into the topmost cup.</p>
+                    </div>
+                </div>
+
+                <!-- Group 3: Placement -->
+                <div class="row g-4 align-items-start mt-4">
+                    <div class="col-12 col-md-6">
+                        <div class="p-2 shadow-sm rounded-3 h-100" style="background:#f8fbff;">
+                            <video src="videos/Realworld/place_real/cam_1.mp4" class="w-100 rounded-3" autoplay loop muted playsinline controls></video>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="p-2 shadow-sm rounded-3 h-100" style="background:#f8fbff;">
+                            <video src="videos/Realworld/place_real/cam_0.mp4" class="w-100 rounded-3" autoplay loop muted playsinline controls></video>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center mt-2">
+                    <div class="col-12">
+                        <p class="shared-caption text-muted mb-0">put the jujube into the coffee cup and place the cup on the plate.</p>
+                    </div>
+                </div>
+
+                <!-- Group 4: Stacking -->
+                <div class="row g-4 align-items-start mt-4">
+                    <div class="col-12 col-md-6">
+                        <div class="p-2 shadow-sm rounded-3 h-100" style="background:#f8fbff;">
+                            <video src="videos/Realworld/stack_real/cam_1.mp4" class="w-100 rounded-3" autoplay loop muted playsinline controls></video>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="p-2 shadow-sm rounded-3 h-100" style="background:#f8fbff;">
+                            <video src="videos/Realworld/stack_real/cam_0.mp4" class="w-100 rounded-3" autoplay loop muted playsinline controls></video>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center mt-2">
+                    <div class="col-12">
+                        <p class="shared-caption text-muted mb-0">stack the green block on the blue block, then stack the red block on top.</p>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <br>
+            <br>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-10" style="max-width: 70%;">
+                    <h3> Simulation Results </h3>
+                </div>
+            </div>
+            <div class="video-grid-wrapper" style="max-width: 70%; margin: 0 auto;">
+                <div class="row text-center text-uppercase fw-bold small g-0" style="border-bottom: 2px solid #d0d7de;">
+                    <div class="col-6 py-2">Eye-in-hand</div>
+                    <div class="col-6 py-2">Eye-to-hand</div>
+                </div>
+                <!-- Group 5: Bridge-Place (Sim) -->
+                <div class="row g-4 align-items-start mt-4">
+                    <div class="col-12 col-md-6">
+                        <div class="p-2 shadow-sm rounded-3 h-100" style="background:#f8fbff;">
+                            <video src="videos/Simulation/block_bridge_place/cam_1.mp4" class="w-100 rounded-3" autoplay loop muted playsinline controls></video>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="p-2 shadow-sm rounded-3 h-100" style="background:#f8fbff;">
+                            <video src="videos/Simulation/block_bridge_place/cam_0.mp4" class="w-100 rounded-3" autoplay loop muted playsinline controls></video>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center mt-2">
+                    <div class="col-12">
+                        <p class="shared-caption text-muted mb-0">build a bridge with green bars and fill with purple blocks</p>
+                    </div>
+                </div>
+                <!-- Group 6: Jujube Placement (Sim) -->
+                <div class="row g-4 align-items-start mt-4">
+                    <div class="col-12 col-md-6">
+                        <div class="p-2 shadow-sm rounded-3 h-100" style="background:#f8fbff;">
+                            <video src="videos/Simulation/place_jujube_coffeecup/cam_1.mp4" class="w-100 rounded-3" autoplay loop muted playsinline controls></video>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="p-2 shadow-sm rounded-3 h-100" style="background:#f8fbff;">
+                            <video src="videos/Simulation/place_jujube_coffeecup/cam_0.mp4" class="w-100 rounded-3" autoplay loop muted playsinline controls></video>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center mt-2">
+                    <div class="col-12">
+                        <p class="shared-caption text-muted mb-0">put the jujube into the coffee cup and place the cup on the plate</p>
+                    </div>
+                </div>
+
+                <!-- Group 7: Stack Block (Sim) -->
+                <div class="row g-4 align-items-start mt-4">
+                    <div class="col-12 col-md-6">
+                        <div class="p-2 shadow-sm rounded-3 h-100" style="background:#f8fbff;">
+                            <video src="videos/Simulation/stack_block/cam_1.mp4" class="w-100 rounded-3" autoplay loop muted playsinline controls></video>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="p-2 shadow-sm rounded-3 h-100" style="background:#f8fbff;">
+                            <video src="videos/Simulation/stack_block/cam_0.mp4" class="w-100 rounded-3" autoplay loop muted playsinline controls></video>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center mt-2">
+                    <div class="col-12">
+                        <p class="shared-caption text-muted mb-0">stack the green block on the blue block, then stack the red block on top</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <br>
+            <br>
+
+            
+
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <h3> EvoVLA </h3><br>
+                    <image width=100% src="img/overview_page-0001.jpg"
+                        alt="You browser does not support this image."></image>
+                    
+                    <br><br>
+                    <p figcaption class="text-justify margin-5" style="text-align: left;">
+                       <strong>EvoVLA overview.</strong> Built on OpenVLA-OFT backbone, EvoVLA integrates three modules: Stage-Aligned Reward (SAR) with hard negatives and temporal smoothing, Pose-Based Object Exploration (POE) via world models, and Long-Horizon Memory with context selection and gated fusion. The framework couples with Discoverse-L for training and deploys to real robots.
+                    </p>
+                </div>
+            </div>
+
+
+
+            <br>
+            <br>
+            <br>
+            <br>    
+
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <h3> EvoVLA Data Engine </h3><br>
+                    <image width=50% src="img/Data_pipeline_page-0001.jpg"
+                        alt="You browser does not support this image."></image>
+                    
+                    <br><br>
+                    <p figcaption class="text-justify margin-5" style="text-align: left;">
+                       <strong>EvoVLA Data Engine.</strong> Aligned with Discoverse-L and the video-driven stage discovery pipeline to close the data–reward–policy loop.
+                </div>
+            </div>
+            
+            
+            <!-- <div class="col-md-8 offset-md-2 text-start" style="padding-top: 4em;"></div>
+                <h4>
+                    Acknowledgements
+                </h4>
+
+                <p class="text-justify" style="text-align: middle;">
+                    We thank the authors of 
+                    
+                </p>
+            </div> -->
+
+            <br><br><br>
+            <div class="row justify-content-center">
+                <div class="col-md-8 center text-start">
+                    <label style="display: inline" for="bibtex">
+                        <h4 style="text-align: center">BibTeX </h4>
+                    </label>
+                    <textarea id="bibtex" class="form-control" readonly>
+@article{zhang2025vasevqa,
+  title={VaseVQA-3D: Benchmarking 3D VLMs on Ancient Greek Pottery},
+  author={Zhang, Nonghai and Zhang, Zeyu and Wang, Jiazi and Zhao, Yang and Tang, Hao},
+  journal={arXiv preprint arXiv:2510.04479},
+  year={2025}
+}
+                        </textarea>
+                </div>
+            </div> 
+
+        </main>
+
+        <br><br>
+        <hr style="width: 70%; text-align: center; margin-left: auto; margin-right: auto;">
+        <footer>
+            <div class="row">
+                <div class="col-md-8 offset-md-2 text-start">
+
+                    <p class="text-justify" style="text-align: center;">
+                        <i>
+                            EvoVLA: Self-Evolving Vision-Language-Action Model
+                        </i>
+                    </p>
+                </div>
+            </div>
+
+        </footer>
+    </div>
+</body>
+
+</html>

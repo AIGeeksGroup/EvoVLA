@@ -1,0 +1,4 @@
+block_bridge_place：build a bridge with green bars and fill with purple blocks
+place_jujube_coffeecup：put the jujube into the coffee cup and place the cup on the plate
+stack：stack the green block on the blue block, then stack the red block on top
+Cup stacking with insertion：Stack four cups and insert the banana-shaped object into the topmost cup.
