@@ -131,8 +131,3 @@ pip install -r requirements.txt
 # Train on Discoverse-L Bridge Task
 python train.py --config configs/evovla_bridge.yaml
 ```
-
-<div align="center">
-  <img src="assets/evovla_logo.png" width="100px">
-  <p><strong>AIGeeksGroup @ Peking University</strong></p>
-</div>
