@@ -1,17 +1,35 @@
 # <img src="assets/evovla_logo.png" width="5%" style="vertical-align: middle;"> EvoVLA: Self-Evolving Vision-Language-Action Model
 
-<div align="center">
-
 [![arXiv](https://img.shields.io/badge/arXiv-2511.16166-b31b1b.svg)](https://arxiv.org/abs/2511.16166)
 [![Project Page](https://img.shields.io/badge/Project-Page-green)](https://aigeeksgroup.github.io/EvoVLA/)
 [![Model](https://img.shields.io/badge/HuggingFace-Model-yellow)](https://huggingface.co/AIGeeksGroup/EvoVLA)
 [![Data](https://img.shields.io/badge/HuggingFace-Data-blue)](https://huggingface.co/datasets/AIGeeksGroup/Discoverse-L)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-**Zeting Liu\*, Zida Yang\*, Zeyu Zhang, Hao Tang**  
-*Peking University*
+This is the official repository for the paper:
+> **MobileVLA-R1: Reinforcing Vision-Language-Action for Mobile Robots**
+>
+> [Zeting Liu](https://github.com/ZetingLiu)\*, [Zida Yang](https://github.com/yzd2002)\*, [Zeyu Zhang](https://steve-zeyu-zhang.github.io/)\*<sup>†</sup>, and [Hao Tang](https://ha0tang.github.io/)<sup>#</sup>
+>
+> \*Equal contribution. <sup>†</sup>Project lead. <sup>#</sup>Corresponding author.
+>
+> ### [Paper](https://arxiv.org/abs/2511.16166) | [Website](https://aigeeksgroup.github.io/EvoVLA/) | [Data](https://huggingface.co/datasets/AIGeeksGroup/Discoverse-L) | [Models](https://huggingface.co/AIGeeksGroup/EvoVLA) | [HF Paper](https://huggingface.co/papers/2511.16166)
 
-</div>
+---
+
+
+## 🔗 Citation
+
+If you find our work helpful, please cite:
+
+```bibtex
+@article{liu2025evovla,
+  title={EvoVLA: Self-Evolving Vision-Language-Action Model},
+  author={Liu, Zeting and Yang, Zida and Zhang, Zeyu and Tang, Hao},
+  journal={arXiv preprint arXiv:2511.16166},
+  year={2025}
+}
+```
 
 ---
 
@@ -114,22 +132,6 @@ pip install -r requirements.txt
 python train.py --config configs/evovla_bridge.yaml
 ```
 
----
-
-## 🔗 Citation
-
-If you find our work helpful, please cite:
-
-```bibtex
-@article{liu2025evovla,
-  title={EvoVLA: Self-Evolving Vision-Language-Action Model},
-  author={Liu, Zeting and Yang, Zida and Zhang, Zeyu and Tang, Hao},
-  journal={arXiv preprint arXiv:2511.16166},
-  year={2025}
-}
-```
-
----
 <div align="center">
   <img src="assets/evovla_logo.png" width="100px">
   <p><strong>AIGeeksGroup @ Peking University</strong></p>
