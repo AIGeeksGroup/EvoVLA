@@ -22,9 +22,11 @@
 ## 🎥 Demo Video
 
 <div align="center">
-  <video src="demo_video.mp4" width="100%" controls autoplay muted loop></video>
+  <a href="https://github.com/AIGeeksGroup/EvoVLA/raw/main/demo_video.mp4">
+    <img src="assets/teaser.png" width="100%" alt="Click to Watch Demo Video">
+  </a>
   <br>
-  <a href="demo_video.mp4">Download High-Res Video (MP4)</a>
+  <p>☝️ <strong>Click the image above to watch the High-Res Demo Video (1080P)</strong> ☝️</p>
 </div>
 
 ---
