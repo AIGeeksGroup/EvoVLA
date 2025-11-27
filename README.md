@@ -22,10 +22,9 @@
 
 ## 🎥 Demo Video
 
+<!-- Video file is too large for GitHub repository. Please upload to YouTube or Project Website and replace this link. -->
 <div align="center">
-  <video src="EvoVLA-video.mp4" width="100%" controls></video>
-  <br>
-  <a href="EvoVLA-video.mp4">Download High-Res Video</a>
+  <p><em>Demo video coming soon.</em></p>
 </div>
 
 ---
