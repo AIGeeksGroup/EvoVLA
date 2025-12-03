@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 This is the official repository for the paper:
-> **MobileVLA-R1: Reinforcing Vision-Language-Action for Mobile Robots**
+> **EvoVLA: Self-Evolving Vision-Language-Action Model**
 >
 > [Zeting Liu](https://github.com/ZetingLiu)\*, [Zida Yang](https://github.com/yzd2002)\*, [Zeyu Zhang](https://steve-zeyu-zhang.github.io/)\*<sup>†</sup>, and [Hao Tang](https://ha0tang.github.io/)<sup>#</sup>
 >
