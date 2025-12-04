@@ -1,5 +1,10 @@
 # <img src="assets/evovla_logo.png" width="5%" style="vertical-align: middle;"> EvoVLA: Self-Evolving Vision-Language-Action Model
 
+
+> [!NOTE]
+> 💪 We will release our code approximately in the afternoon of Dec 5 (GMT-8).
+
+
 [![arXiv](https://img.shields.io/badge/arXiv-2511.16166-b31b1b.svg)](https://arxiv.org/abs/2511.16166)
 [![Project Page](https://img.shields.io/badge/Project-Page-green)](https://aigeeksgroup.github.io/EvoVLA/)
 [![Model](https://img.shields.io/badge/HuggingFace-Model-yellow)](https://huggingface.co/AIGeeksGroup/EvoVLA)
