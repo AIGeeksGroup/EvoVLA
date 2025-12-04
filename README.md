@@ -2,7 +2,7 @@
 
 
 > [!NOTE]
-> 💪 We will release our code approximately in the afternoon of Dec 5 (GMT-8).
+> 💪 We will release our code approximately in the afternoon of Dec 5 (GMT-8). Stay tuned!
 
 
 [![arXiv](https://img.shields.io/badge/arXiv-2511.16166-b31b1b.svg)](https://arxiv.org/abs/2511.16166)
