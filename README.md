@@ -13,6 +13,11 @@
 
 </div>
 
+## 📰 News
+
+*   **[2025-12-05]** Code released! We have released the training code, evaluation scripts, and pre-trained models.
+*   **[2025-11-27]** Paper released on arXiv.
+
 ---
 
 <div align="center">
