@@ -17,6 +17,21 @@ This is the official repository for the paper:
 
 ---
 
+## 🔗 Citation
+
+If you find our work helpful, please cite:
+
+```bibtex
+@article{liu2025evovla,
+  title={EvoVLA: Self-Evolving Vision-Language-Action Model},
+  author={Liu, Zeting and Yang, Zida and Zhang, Zeyu and Tang, Hao},
+  journal={arXiv preprint arXiv:2511.16166},
+  year={2025}
+}
+```
+
+---
+
 ## 📰 News
 
 *   **[2025-12-05]** Code released! We have released the training code, evaluation scripts, and pre-trained models.
@@ -140,19 +155,6 @@ python train.py --config configs/evovla_bridge.yaml
 ```
 
 ---
-
-## 🔗 Citation
-
-If you find our work helpful, please cite:
-
-```bibtex
-@article{liu2025evovla,
-  title={EvoVLA: Self-Evolving Vision-Language-Action Model},
-  author={Liu, Zeting and Yang, Zida and Zhang, Zeyu and Tang, Hao},
-  journal={arXiv preprint arXiv:2511.16166},
-  year={2025}
-}
-```
 
 ## Star History
 
