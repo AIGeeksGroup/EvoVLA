@@ -1,0 +1,100 @@
+# EvoVLA Base Configuration
+
+# Model configuration
+model:
+  name: "openvla-7b-oft"
+  path: "/path/to/openvla-7b-oft"
+  device: "cuda"
+  use_l1_regression: true
+  use_diffusion: false
+  num_images_in_input: 2
+  use_proprio: true
+  load_in_8bit: false
+  load_in_4bit: false
+  center_crop: true
+  unnorm_key: "libero_spatial_no_noops"
+  
+  # Policy head configuration
+  policy_head:
+    hidden_dim: 512
+    action_dim: 7  # dx, dy, dz, droll, dpitch, dyaw, dgrip
+    
+  # Value head configuration
+  value_head:
+    hidden_dim: 256
+
+# PPO training configuration
+ppo:
+  # Training hyperparameters
+  total_steps: 2000000
+  rollout_length: 2048
+  num_envs: 8
+  batch_size: 256
+  ppo_epochs: 10
+  learning_rate: 3.0e-4
+  gamma: 0.995
+  lambda_gae: 0.95
+  clip_range: 0.2
+  value_coef: 0.5
+  entropy_coef: 0.01
+  max_grad_norm: 0.5
+  
+  # Learning rate schedule
+  use_lr_warmup: true
+  warmup_steps: 10000
+  
+  # Gradient checkpointing
+  use_grad_checkpoint: true
+
+# Reward configuration
+rewards:
+  # Intrinsic reward weight (rho)
+  rho: 0.6
+  
+  # SAR (Stage Aligned Reward)
+  sar:
+    temperature: 0.05      # tau in paper
+    smoothing_coef: 0.05   # alpha in paper
+    clip_model: "ViT-B/32"
+    
+  # POE (Pose-based Object Exploration)
+  poe:
+    curiosity_scale: 1.0   # eta in paper
+    forward_loss_weight: 1.0
+    inverse_loss_weight: 0.1
+    hidden_dim: 256
+
+# Stage gating configuration
+stage_gating:
+  window_size: 8           # m in paper
+  threshold: 0.15          # theta_kappa in paper
+  metric: "delta"          # "delta" or "score"
+
+# DISCOVERSE environment configuration
+env:
+  robot_name: "airbot_play"
+  render:
+    width: 448
+    height: 448
+    fps: 20
+  num_parallel: 8
+  headless: true
+  use_gaussian_renderer: false
+
+# Data configuration
+data:
+  sft_demos_per_task: 50
+  save_interval: 25000
+  eval_interval: 10000
+
+# Logging configuration
+logging:
+  use_wandb: false
+  wandb_project: "evovla"
+  log_interval: 100
+  save_video: true
+  video_interval: 5000
+
+# Random seed
+seed: 42
+

@@ -129,6 +129,10 @@ If you find our work helpful, please cite:
 }
 ```
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=AIGeeksGroup/EvoVLA&type=date&legend=top-left)](https://www.star-history.com/#AIGeeksGroup/EvoVLA&type=date&legend=top-left)
+
 ---
 <div align="center">
   <img src="assets/evovla_logo.png" width="100px">
