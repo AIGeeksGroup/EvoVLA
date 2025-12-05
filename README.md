@@ -15,6 +15,7 @@ This is the official repository for the paper:
 >
 > ### [Paper](https://arxiv.org/abs/2511.16166) | [Website](https://aigeeksgroup.github.io/EvoVLA/) | [Data](https://huggingface.co/datasets/AIGeeksGroup/Discoverse-L) | [Models](https://huggingface.co/AIGeeksGroup/EvoVLA) | [HF Paper](https://huggingface.co/papers/2511.16166)
 
+https://github.com/user-attachments/assets/20ea6d5a-5fcb-4b72-a008-1e94224bf5ed
 ---
 
 ## 🔗 Citation
