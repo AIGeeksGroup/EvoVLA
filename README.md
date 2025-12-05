@@ -41,9 +41,6 @@ If you find our work helpful, please cite:
 
 ---
 
-<div align="center">
-  <img src="assets/teaser.png" width="100%">
-</div>
 
 ## 🎥 Demo Video
 
@@ -64,6 +61,10 @@ In long-horizon manipulation tasks, robots often suffer from **"Stage Hallucinat
 **EvoVLA** is a self-evolving framework designed to cure this hallucination. By treating **Gemini 2.5 Pro** as a strict teacher that generates "Hard Negatives" (near-miss scenarios), EvoVLA learns to distinguish between *almost done* and *actually done*.
 
 Combined with **Pose-Based Object Exploration (POE)** and **Long-Horizon Memory**, EvoVLA achieves **SOTA performance** on the challenging **Discoverse-L** benchmark.
+
+<div align="center">
+  <img src="assets/teaser.png" width="100%">
+</div>
 
 ---
 
