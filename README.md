@@ -97,6 +97,22 @@ Deployed on the **AIRBOT-Play** robot, EvoVLA shows remarkable robustness.
 
 ---
 
+## 📂 Project Structure
+
+```
+EvoVLA/
+├── evovla/                    # Core module
+│   ├── models/                # Policy models (OpenVLA-OFT)
+│   ├── rewards/               # Reward modules (SAR, POE)
+│   ├── ppo/                   # PPO trainer
+│   ├── data/                  # Data utilities (Discoverse wrapper)
+│   └── utils/                 # Utilities
+├── configs/                   # Configuration files
+├── scripts/                   # Training and evaluation scripts
+├── tools/                     # Data preparation tools
+└── requirements.txt           # Python dependencies
+```
+
 ## 🛠️ Quick Start
 
 ### Installation
