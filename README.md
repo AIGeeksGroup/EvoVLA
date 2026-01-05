@@ -132,7 +132,7 @@ EvoVLA/
 ├── configs/                   # Configuration files
 ├── scripts/                   # Training and evaluation scripts
 ├── tools/                     # Data preparation tools
-└── requirements.txt           # Python dependencies
+└── requirements.txt           # Dependencies
 ```
 
 ## 🛠️ Quick Start
